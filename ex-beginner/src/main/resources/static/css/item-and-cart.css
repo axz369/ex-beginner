@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+#container {
+  display: flex;
+}
+
+.item-area {
+  width: 300px;
+}
+
+.shop-area {
+  width: 300px;
+}
+
+.button {
+  background-color: antiquewhite;
+  border-radius: 1rm;
+}

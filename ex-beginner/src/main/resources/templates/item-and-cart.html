@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/item-and-cart.css}" />
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div id="container">
+    <div class="item-area">
+        <p>商品一覧</p>
+        <p>（applicationスコープ）</p>
+        <div th:each="item,status : ${application.itemList}">
+            <form th:action="@{/shoppingCart/inCart}" method="post">
+            <span>
+              <span th:text="${item.name}"></span>
+              <span> </span>
+              <span
+                      th:text="${#numbers.formatInteger(item.price,0,'COMMA')}"
+              ></span>
+            </span>
+
+                <!-- hiddenでindex送信 -->
+                <input type="hidden" name="index" th:value="${status.index}" />
+                <span>
+              <button type="submit" class="button">カートへ</button>
+            </span>
+            </form>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="cart-area">
+        <p>ショッピングカート</p>
+        <p>（sessionスコープ）</p>
+        <div th:each="item,status : ${session.shoppingCartList}">
+            <form th:action="@{/shoppingCart/delete}" method="post">
+            <span>
+              <span th:text="${item.name}"></span>
+              <span> </span>
+              <span
+                      th:text="${#numbers.formatInteger(item.price,0,'COMMA')}"
+              ></span
+              >円
+            </span>
+
+                <!-- hiddenでindex送信 -->
+                <input type="hidden" name="index" th:value="${status.index}" />
+                <span>
+              <button type="submit" class="button">削除</button>
+            </span>
+            </form>
+        </div>
+        <p>
+            合計(requestスコープ)<span
+                th:text="${#numbers.formatInteger(totalPrice,0,'COMMA')}"
+        ></span
+        >円
+        </p>
+    </div>
+</div>
+</body>
+</html>
